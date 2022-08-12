@@ -49,7 +49,7 @@ function App() {
       <ContactForm onSubmit={onSubmit} />
 
       <h2>Contacts</h2>
-      <Filter onFilter={onFilter} />
+      <Filter onFilter={onFilter} filter={filter} />
       <ContactList appState={{ contacts, filter }} onDelete={onDelete} />
     </div>
   );
