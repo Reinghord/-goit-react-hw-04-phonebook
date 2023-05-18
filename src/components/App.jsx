@@ -22,7 +22,11 @@ function App() {
   }, [contacts]);
 
   const onSubmit = (submitName, submitNumber) => {
-    if (contacts.find(contact => contact.name === submitName)) {
+    if (
+      contacts.find(
+        contact => contact.name.toLowerCase() === submitName.toLowerCase()
+      )
+    ) {
       return alert(`${submitName} is already in contacts.`);
     }
     setContacts(state => [
@@ -39,6 +43,15 @@ function App() {
     setFilter(filterText);
   };
 
+  const onFilteredContacts = () => {
+    if (filter) {
+      return contacts.filter(contact => {
+        return contact.name.toLowerCase().includes(filter.toLowerCase());
+      });
+    }
+    return contacts;
+  };
+
   const onDelete = deleteId => {
     setContacts(state => state.filter(contact => contact.id !== deleteId));
   };
@@ -50,7 +63,10 @@ function App() {
 
       <h2>Contacts</h2>
       <Filter onFilter={onFilter} filter={filter} />
-      <ContactList appState={{ contacts, filter }} onDelete={onDelete} />
+      <ContactList
+        onFilteredContacts={onFilteredContacts}
+        onDelete={onDelete}
+      />
     </div>
   );
 }

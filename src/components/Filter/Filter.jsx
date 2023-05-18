@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import s from './Filter.module.css';
+import { Label, Input } from './Filter.styled';
 
 function Filter({ filter, onFilter }) {
   const onHandleSearch = e => {
@@ -8,11 +8,8 @@ function Filter({ filter, onFilter }) {
 
   return (
     <>
-      <label className={s.label} htmlFor="search">
-        Find contacts by name
-      </label>
-      <input
-        className={s.input}
+      <Label htmlFor="search">Find contacts by name</Label>
+      <Input
         type="text"
         name="search"
         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -25,6 +22,9 @@ function Filter({ filter, onFilter }) {
   );
 }
 
-Filter.propTypes = { onFilter: PropTypes.func.isRequired };
+Filter.propTypes = {
+  onFilter: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+};
 
 export default Filter;

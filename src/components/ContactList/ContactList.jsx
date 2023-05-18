@@ -1,36 +1,32 @@
 import PropTypes from 'prop-types';
-import s from './ContactList.module.css';
+import { Button, ListItem } from './ContactList.styled';
 
-function ContactList({ appState: { contacts, filter }, onDelete }) {
+function ContactList({ onFilteredContacts, onDelete }) {
+  const filteredContacts = onFilteredContacts();
   return (
     <>
       <ul>
-        {contacts
-          .filter(contact => {
-            return contact.name.toLowerCase().includes(filter.toLowerCase());
-          })
-          .map(contact => {
-            return (
-              <li className={s.item} key={contact.id}>
-                {contact.name}: {contact.number}{' '}
-                <button
-                  className={s.button}
-                  onClick={() => {
-                    onDelete(contact.id);
-                  }}
-                >
-                  Delete
-                </button>
-              </li>
-            );
-          })}
+        {filteredContacts.map(contact => {
+          return (
+            <ListItem key={contact.id}>
+              {contact.name}: {contact.number}{' '}
+              <Button
+                onClick={() => {
+                  onDelete(contact.id);
+                }}
+              >
+                Delete
+              </Button>
+            </ListItem>
+          );
+        })}
       </ul>
     </>
   );
 }
 
 ContactList.propTypes = {
-  appState: PropTypes.object.isRequired,
+  onFilteredContacts: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
