@@ -31,6 +31,7 @@ function ContactForm({ onSubmit }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: { name: '', number: '' },
@@ -39,8 +40,8 @@ function ContactForm({ onSubmit }) {
 
   const onHandleSubmit = ({ name, number }) => {
     onSubmit(name, number);
+    reset();
   };
-
   return (
     <FormStyled onSubmit={handleSubmit(onHandleSubmit)}>
       {' '}
